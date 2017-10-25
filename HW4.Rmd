@@ -2,7 +2,7 @@
 title: "HW4"
 author: "Imaani Easthausen"
 date: "October 25, 2017"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
