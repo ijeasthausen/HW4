@@ -1,0 +1,37 @@
+---
+title: "HW4"
+author: "Imaani Easthausen"
+date: "October 25, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(haven)
+library(janitor)
+library(readxl)
+library(tidyverse)
+library(knitr)
+library(ggridges)
+library(hexbin)
+library(forcats)
+library(httr)
+library(rvest)
+library(stringr)
+library(forcats)
+```
+
+#Problem 1
+For this problem, we will use the `pups` dataset. Below, we read and clean the data, coverting from 'wide' to 'long' formmat. 
+```{r}
+#load and clean data
+pups = readr::read_csv(file = "FAS_pups.csv") %>%
+  clean_names() %>%
+  gather(key = pd_outcome, value = days, pd_ears:pd_walk) %>%
+  mutate(pd_outcome = str_replace(pd_outcome, 'pd_', ""), 
+         litter_number = str_replace(litter_number, '#', ''))
+```
+
+
+
+
