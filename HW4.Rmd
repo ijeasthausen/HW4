@@ -19,6 +19,7 @@ library(httr)
 library(rvest)
 library(stringr)
 library(forcats)
+library(ggplot2)
 ```
 
 #Problem 1
@@ -32,6 +33,33 @@ pups = readr::read_csv(file = "FAS_pups.csv") %>%
          litter_number = str_replace(litter_number, '#', ''))
 ```
 
+Here we create plots of distributions of post-natal days for each developmental landmark.
+
+```{r create plot for distribution of post-natal days for each developmental landmark}
+
+# pups %>% filter(pd_outcome == "ears") %>% nrow()
+
+ggplot(pups, aes(x = days, y = pd_outcome, color = pd_outcome)) + 
+  geom_density_ridges(aes(fill = pd_outcome), scale = .85) +
+  theme(legend.position = "NULL") +
+  labs(
+    title = "Post-natal days for developmental landmark for 313 pups",
+    x = "Developmental outcome",
+    y = "Post-natal days"
+  )
+
+ggplot(pups, aes(x = pd_outcome, y = days)) + 
+  geom_violin(aes(fill = pd_outcome), color = "blue", alpha = .5) + 
+  stat_summary(fun.y = median, geom = "point", color = "blue", size = 4) + 
+  theme(legend.position = "NULL") +
+  labs(
+    title = "Post-natal days for developmental landmark for 313 pups",
+    x = "Developmental outcome",
+    y = "Post-natal days"
+  )
+
+```
 
 
+The developmental periods for eyes and ears both look narrow, compared to those for walk and pivot. The majority of pups have eye development at 13 days. The majority of pups have ear development at 4 days, with some developing them sooner. The means for pivot and walk are about 7 and 9 days, respectively. 
 
